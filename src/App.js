@@ -7,9 +7,11 @@ import {
     Grid,
     List,
     ListItemText,
+    Paper,
     Typography,
 } from "@mui/material";
 import Footer from "./components/Footer";
+import _ from "lodash";
 const RULES = [
     "League Commissioner determines the number of teams participating in their league and the number of Contestants per team",
     "Week 1 is for scouting, the game officially begins with Week 2",
@@ -27,38 +29,81 @@ const DRAFT_SECTIONS = [
 
 const ScoringCell = (label, score) => ({ label, score });
 
-const Cell = ({ score = 1, label = "Group Date", index }) => {
-    const borderStyle = "1px solid white";
+const ScoringRules = [
+    ScoringCell("Group Date", 1),
+    ScoringCell("Two-On-One Date", 1.5),
+    ScoringCell("One-On-One Date", 2),
+    ScoringCell("Ride on Any Flying Apparatus", 1),
+    ScoringCell("Receiving a Rose During a Date or Cocktail Party", 1.5),
+    ScoringCell("Receiving a Rose During the Rose Ceremony ", 1),
+];
+
+const Cell = ({ score = 1, label = "Group Date", isInnerCell, isLastRow }) => {
+    const paddingY = 10;
+    const borderStyle = "2px solid rgba(247,247,247,0.3)";
     return (
         <Box
             sx={{
                 width: "215px",
-                borderBottom: borderStyle,
-                pb: "59px",
-                borderRight: borderStyle,
-                borderLeft: borderStyle,
+                // borderBottom: borderStyle,
+                // py: paddingY,
+                mt: paddingY,
             }}
         >
-            <Typography
+            <Box
                 sx={{
-                    fontSize: "79px",
+                    borderRight: isInnerCell ? borderStyle : "none",
+                    borderLeft: isInnerCell ? borderStyle : "none",
                 }}
             >
-                {score}
-            </Typography>
-            <Typography
-                sx={{
-                    fontSize: "14px",
-                    textTransform: "uppercase",
-                }}
-            >
-                {label}
-            </Typography>
+                {" "}
+                <Typography
+                    sx={{
+                        fontSize: "79px",
+                    }}
+                >
+                    {score}
+                </Typography>
+                <Typography
+                    sx={{
+                        fontSize: "13px",
+                        textTransform: "uppercase",
+                    }}
+                >
+                    {label}
+                </Typography>
+            </Box>
+            {!isLastRow && (
+                <Box
+                    sx={{
+                        width: "67.5%",
+                        height: "2px",
+                        backgroundColor: "rgba(247,247,247,0.3)",
+                        mt: paddingY,
+                        mx: "auto",
+                    }}
+                />
+            )}
         </Box>
     );
 };
 
-const PointGrid = () => {
+const GridRow = ({ rowItems }) => {
+    return (
+        <Grid container justifyContent="center" spacing={0}>
+            {rowItems.map((value, index) => (
+                <Grid key={value} item>
+                    <Cell {...value} isInnerCell={index === 1} />
+                </Grid>
+            ))}
+        </Grid>
+    );
+};
+
+const PointGrid = ({ header, scoringCells }) => {
+    const itemsPerRow = 3;
+    const rowCount = Math.ceil(scoringCells.length / itemsPerRow);
+
     return (
         <Box>
             <Typography
@@ -71,35 +116,17 @@ const PointGrid = () => {
                     color: "white",
                 }}
             >
-                - Each Episode -
+                - {header} -
             </Typography>
-            <Grid
-                sx={{
-                    mt: 7,
-                }}
-                container
-                spacing={0}
-            >
-                {[
-                    ScoringCell("Group Date", 1),
-                    ScoringCell("Two-On-One Date", 1.5),
-                    ScoringCell("One-On-One Date", 2),
-                    ScoringCell("Ride on Any Flying Apparatus", 1),
-                    ScoringCell(
-                        "Receiving a Rose During a Date or Cocktail Party",
-                        1
-                    ),
-                    ScoringCell(
-                        "Receiving a Rose During the Rose Ceremony ",
-                        1
-                    ),
-                ].map((value, index) => (
-                    <Grid item xs={4}>
-                        <Cell index={index} {...value}>
-                            xs=8
-                        </Cell>
-                    </Grid>
-                ))}
+
+            <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+                <Grid item xs={12}>
+                    <>
+                        {/* {_.times(rowCount).map((rowIndex) =>  <GridRow rowItems={ScoringRules.slice(0, 3)} /> )} */}
+                        <GridRow rowItems={ScoringRules.slice(0, 3)} />
+                        <GridRow rowItems={ScoringRules.slice(3, 6)} />
+                    </>
+                </Grid>
             </Grid>
         </Box>
     );
@@ -183,7 +210,14 @@ function App() {
                     }}
                 >
                     Points System
-                    <PointGrid />
+                    <PointGrid
+                        header="Each Episode"
+                        scoringCells={ScoringRules}
+                    />
+                    <PointGrid
+                        header="End of Season"
+                        scoringCells={ScoringRules}
+                    />
                 </Typography>
             </Box>
             <Box
