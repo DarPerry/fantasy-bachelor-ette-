@@ -1,6 +1,7 @@
 import { faRing } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const MENU_OPTIONS = ["Rules", "Contestants", "Scorecard"];
 
@@ -48,7 +49,15 @@ const Header = () => {
                             fontWeight: 500,
                         }}
                     >
-                        {optionLabel}
+                        <Link
+                            to={optionLabel.toLowerCase()}
+                            style={{
+                                textDecoration: "none",
+                                color: "white",
+                            }}
+                        >
+                            {optionLabel}
+                        </Link>
                     </Button>
                 ))}{" "}
             </Toolbar>
