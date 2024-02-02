@@ -212,24 +212,54 @@ const Contestant = (name, age, job, location, eliminated = false) => {
 
     _.times(CURRENT_WEEK - 1, (idx) => {
         const eventsForWeek = weeklyScoring[idx];
-        let pointsForWeek = 1;
+        let pointsForWeek = 0;
 
         // Add A Point For Not Getting Eliminated
+
+        const determinateEvents = [];
 
         for (const event of eventsForWeek) {
             const scoringEventName = Object.keys(event)[0];
 
-            if (event.ELIMINATED) {
-                if (event.ELIMINATED.includes(name)) {
-                    isEliminated = true;
-                }
-            } else {
+            if (
+                ![
+                    "ELIMINATED",
+                    SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE,
+                ].includes(scoringEventName)
+            ) {
                 const eventKey = Object.keys(event)[0];
                 const contestantsInvolved = Object.values(event)[0];
 
                 if (contestantsInvolved?.includes(name)) {
-                    console.log(eventKey);
+                    if (name === "Daisy") {
+                        console.log(
+                            "44",
+                            eventKey,
+                            SCORING_CATERGORIES[eventKey].points
+                        );
+                    }
                     pointsForWeek += SCORING_CATERGORIES[eventKey].points;
+                }
+            } else {
+                if (event.ELIMINATED) {
+                    if (event.ELIMINATED.includes(name)) {
+                        isEliminated = true;
+                    }
+                } else {
+                    //SHOULD ONLY BE GROUP DATE OR COCKTAIL PARTY ROSE
+
+                    if (
+                        scoringEventName ===
+                        " SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE"
+                    ) {
+                        pointsForWeek +=
+                            SCORING_CATERGORIES[scoringEventName].points;
+                    }
+
+                    //+1 For Surving Week
+                    if (!isEliminated) {
+                        pointsForWeek += 1;
+                    }
                 }
             }
         }
