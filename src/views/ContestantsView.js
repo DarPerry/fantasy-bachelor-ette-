@@ -1,165 +1,269 @@
-import { Box, Stack, Typography, Paper, Avatar, Chip } from "@mui/material";
+import {
+    Box,
+    Stack,
+    Typography,
+    Paper,
+    Avatar,
+    Chip,
+    Fab,
+    Container,
+} from "@mui/material";
 import { contestants } from "../constants";
-import { faBan } from "@fortawesome/free-solid-svg-icons";
+import {
+    faBan,
+    faChevronCircleLeft,
+    faChevronCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
+import { useState } from "react";
 
-const ScoreTile = () => {
+const ScoreTile = ({ week, points }) => {
     return (
         <Box
             sx={{
                 backgroundColor: "#eaeaea",
+                width: "100%",
+                py: 0.5,
             }}
         >
-            1
+            <Typography
+                sx={{
+                    color: "#93897e",
+                    fontSize: 12,
+                }}
+            >
+                {week}
+            </Typography>
+            <Typography
+                sx={{
+                    fontWeight: "bold",
+                    color: "#2c3135",
+                }}
+            >
+                {points}
+            </Typography>
         </Box>
     );
 };
 
 const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
+    const [team, setTeam] = useState(null);
+
+    const showDraftButtons = !team;
+    const isTeamJill = team === "Jill";
+    const isTeamDarius = team === "Darius";
+    const moveDistance = "35";
+
     const imageUrl = `/assets/${name
         .toLowerCase()
         .replace(".", "")
         .replace(" ", "-")}.jpg`;
     return (
-        <Paper
-            textAlign="left"
+        <Container
             sx={{
                 display: "flex",
-                width: 560,
+                justifyContent: "center",
                 alignItems: "center",
-                opacity: eliminated ? 0.3 : 1,
-                borderWidth: 3,
-                position: "relative",
-                borderStyle: "solid",
-                borderColor: eliminated ? "red" : "#93897e",
-                justifyContent: "space-between",
             }}
         >
-            {eliminated && (
-                <FontAwesomeIcon
-                    icon={faBan}
-                    style={{
-                        position: "absolute",
-                        zIndex: 1,
-                        fontSize: 60,
-                        color: "red",
-                        left: "43%",
-                    }}
-                />
-            )}
-            <Box>
-                {" "}
-                <Box
+            {showDraftButtons && (
+                <Fab
+                    variant="extended"
+                    color="secondary"
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        padding: 1,
+                        mr: 2,
                     }}
+                    onClick={() => setTeam("Jill")}
                 >
-                    <Avatar
-                        alt="Remy Sharp"
-                        src={imageUrl}
-                        sx={{ width: 80, height: 80 }}
+                    <FontAwesomeIcon
+                        icon={faChevronCircleLeft}
+                        style={{
+                            marginRight: 5,
+                        }}
+                        size="xl"
                     />
-                    <Box p={2}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Typography
-                                sx={{
-                                    fontSize: 18,
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                {name}
-                            </Typography>
-                            <Typography
-                                sx={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    color: "rgb(118, 118, 118)",
-                                    position: "relative",
-                                    bottom: -1,
-                                }}
-                                ml={1}
-                            >
-                                {age}
-                            </Typography>
-                        </Box>
-
-                        <Stack direction="row" spacing={1} mt={0.5}>
-                            <Chip label={job} size="small" />
-                            <Chip label={location} size="small" />
-                        </Stack>
-                    </Box>
-                </Box>
-                <Stack direction="row">
-                    {_.times(9).map((idx) => (
-                        <ScoreTile />
-                    ))}
-                </Stack>
-            </Box>
-
-            {/* <img src={"/allison.jpg"} alt="logo" /> */}
-
-            <Box
+                    Team Jill
+                </Fab>
+            )}
+            <Paper
+                textAlign="left"
                 sx={{
-                    backgroundColor: "#f8f9fc",
-                    height: "100%",
-                    boxSizing: "border-box",
                     display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    gap: 0.5,
-                    borderLeft: "2px solid #93897e",
+                    width: 560,
+                    alignItems: "center",
+                    opacity: eliminated ? 0.3 : 1,
+                    borderWidth: 3,
+                    position: "relative",
+                    borderStyle: "solid",
+                    borderColor: eliminated ? "red" : "#93897e",
+                    justifyContent: "space-between",
+                    [isTeamDarius ? "left" : "right"]: showDraftButtons
+                        ? 0
+                        : `${moveDistance}%`,
+                    // left: isTeamJill ? `-${moveDistance}%` : 0,
+                    // right: isTeamDarius ? `-${moveDistance}%` : 0,
+                    transition: "left 0.5s, right 0.5s",
                 }}
-                py={2}
-                px={3}
             >
+                {eliminated && (
+                    <FontAwesomeIcon
+                        icon={faBan}
+                        style={{
+                            position: "absolute",
+                            zIndex: 1,
+                            fontSize: 60,
+                            color: "red",
+                            left: "43%",
+                        }}
+                    />
+                )}
                 <Box
                     sx={{
-                        display: "flex",
-                        alignItems: "flex-end",
-                        gap: 0.5,
-                        // width: 150,
+                        width: "100%",
                     }}
                 >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            padding: 1,
+                        }}
+                    >
+                        <Avatar
+                            alt="Remy Sharp"
+                            src={imageUrl}
+                            sx={{ width: 80, height: 80 }}
+                        />
+                        <Box p={2}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: 18,
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    {name}
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        fontSize: 15,
+                                        fontWeight: "bold",
+                                        color: "rgb(118, 118, 118)",
+                                        position: "relative",
+                                        bottom: -1,
+                                    }}
+                                    ml={1}
+                                >
+                                    {age}
+                                </Typography>
+                            </Box>
+
+                            <Stack direction="row" spacing={1} mt={0.5}>
+                                <Chip label={job} size="small" />
+                                <Chip label={location} size="small" />
+                            </Stack>
+                        </Box>
+                    </Box>
+                    <Stack
+                        direction="row"
+                        sx={{
+                            borderTop: "1px solid #93897e",
+                        }}
+                    >
+                        {_.times(9).map((idx) => (
+                            <ScoreTile week={idx + 1} points={points[idx]} />
+                        ))}
+                    </Stack>
+                </Box>
+
+                {/* <img src={"/allison.jpg"} alt="logo" /> */}
+
+                <Box
+                    sx={{
+                        backgroundColor: "#f8f9fc",
+                        height: "154px",
+                        boxSizing: "border-box",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 0.5,
+                        borderLeft: "2px solid #93897e",
+                        width: 170,
+                    }}
+                    py={1.5}
+                    px={2.5}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "flex-end",
+                            gap: 0.5,
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: "rgb(51, 51, 51)",
+                                fontWeight: 800,
+                                fontSize: 24,
+                            }}
+                        >
+                            {points[0] + points[1]}
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: "rgb(51, 51, 51)",
+                                fontWeight: 700,
+                                fontSize: 12,
+                                position: "relative",
+                                bottom: 3,
+                            }}
+                        >
+                            Points
+                        </Typography>
+                    </Box>
                     <Typography
                         sx={{
                             color: "rgb(51, 51, 51)",
-                            fontWeight: 800,
-                            fontSize: 24,
+                            fontWeight: 600,
+                            fontSize: 11,
                         }}
                     >
-                        {points[0] + points[1]}
-                    </Typography>
-                    <Typography
-                        sx={{
-                            color: "rgb(51, 51, 51)",
-                            fontWeight: 700,
-                            fontSize: 12,
-                            position: "relative",
-                            bottom: 3,
-                        }}
-                    >
-                        Points
+                        In Weeks 1-2
                     </Typography>
                 </Box>
-                <Typography
+            </Paper>
+            {showDraftButtons && (
+                <Fab
+                    variant="extended"
+                    color="primary"
                     sx={{
-                        color: "rgb(51, 51, 51)",
-                        fontWeight: 600,
-                        fontSize: 11,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        ml: 2,
                     }}
+                    onClick={() => setTeam("Darius")}
                 >
-                    In Weeks 1-2
-                </Typography>
-            </Box>
-        </Paper>
+                    Team Darius
+                    <FontAwesomeIcon
+                        icon={faChevronCircleRight}
+                        style={{
+                            marginLeft: 5,
+                        }}
+                        size="xl"
+                    />
+                </Fab>
+            )}
+        </Container>
     );
 };
 
@@ -183,10 +287,11 @@ const ContestantsView = () => {
             <Box sx={{ width: "100%" }}>
                 <Stack
                     spacing={2}
-                    direction="row"
+                    direction="column"
                     flexWrap="wrap"
                     useFlexGap
                     justifyContent="center"
+                    alignContent={"center"}
                 >
                     {_.sortBy(contestants, "eliminated").map((contestant) => (
                         <ContestantRow {...contestant} />
