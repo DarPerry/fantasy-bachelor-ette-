@@ -4,6 +4,18 @@ import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 
+const ScoreTile = () => {
+    return (
+        <Box
+            sx={{
+                backgroundColor: "#eaeaea",
+            }}
+        >
+            1
+        </Box>
+    );
+};
+
 const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
     const imageUrl = `/assets/${name
         .toLowerCase()
@@ -20,7 +32,7 @@ const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
                 borderWidth: 3,
                 position: "relative",
                 borderStyle: "solid",
-                borderColor: eliminated ? "red" : "gray",
+                borderColor: eliminated ? "red" : "#93897e",
                 justifyContent: "space-between",
             }}
         >
@@ -36,54 +48,62 @@ const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
                     }}
                 />
             )}
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 1,
-                }}
-            >
-                <Avatar
-                    alt="Remy Sharp"
-                    src={imageUrl}
-                    sx={{ width: 80, height: 80 }}
-                />
-                <Box p={2}>
-                    <Box
-                        sx={{
-                            display: "flex",
+            <Box>
+                {" "}
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        padding: 1,
+                    }}
+                >
+                    <Avatar
+                        alt="Remy Sharp"
+                        src={imageUrl}
+                        sx={{ width: 80, height: 80 }}
+                    />
+                    <Box p={2}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontSize: 18,
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                {name}
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    fontSize: 15,
+                                    fontWeight: "bold",
+                                    color: "rgb(118, 118, 118)",
+                                    position: "relative",
+                                    bottom: -1,
+                                }}
+                                ml={1}
+                            >
+                                {age}
+                            </Typography>
+                        </Box>
 
-                            alignItems: "center",
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                fontSize: 18,
-                                fontWeight: "bold",
-                            }}
-                        >
-                            {name}
-                        </Typography>
-                        <Typography
-                            sx={{
-                                fontSize: 15,
-                                fontWeight: "bold",
-                                color: "rgb(118, 118, 118)",
-                                position: "relative",
-                                bottom: -1,
-                            }}
-                            ml={1}
-                        >
-                            {age}
-                        </Typography>
+                        <Stack direction="row" spacing={1} mt={0.5}>
+                            <Chip label={job} size="small" />
+                            <Chip label={location} size="small" />
+                        </Stack>
                     </Box>
-
-                    <Stack direction="row" spacing={1} mt={0.5}>
-                        <Chip label={job} size="small" />
-                        <Chip label={location} size="small" />
-                    </Stack>
                 </Box>
+                <Stack direction="row">
+                    {_.times(9).map((idx) => (
+                        <ScoreTile />
+                    ))}
+                </Stack>
             </Box>
+
             {/* <img src={"/allison.jpg"} alt="logo" /> */}
 
             <Box
@@ -95,7 +115,7 @@ const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
                     flexDirection: "column",
                     justifyContent: "center",
                     gap: 0.5,
-                    borderLeft: "2px solid gray",
+                    borderLeft: "2px solid #93897e",
                 }}
                 py={2}
                 px={3}
@@ -105,6 +125,7 @@ const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
                         display: "flex",
                         alignItems: "flex-end",
                         gap: 0.5,
+                        // width: 150,
                     }}
                 >
                     <Typography
