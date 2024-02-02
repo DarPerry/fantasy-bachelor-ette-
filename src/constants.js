@@ -216,6 +216,14 @@ const Contestant = (name, age, job, location, eliminated = false) => {
 
         // Add A Point For Not Getting Eliminated
 
+        const contestantsEliminatedThisWeek = eventsForWeek.find(
+            (a) => Object.keys(a)[0] === "ELIMINATED"
+        )?.ELIMINATED;
+
+        console.log("Week", idx + 1, contestantsEliminatedThisWeek);
+
+        console.log(name, isEliminated);
+
         const determinateEvents = [];
 
         for (const event of eventsForWeek) {
@@ -231,17 +239,12 @@ const Contestant = (name, age, job, location, eliminated = false) => {
                 const contestantsInvolved = Object.values(event)[0];
 
                 if (contestantsInvolved?.includes(name)) {
-                    if (name === "Daisy") {
-                        console.log(
-                            "44",
-                            eventKey,
-                            SCORING_CATERGORIES[eventKey].points
-                        );
-                    }
+                    console.log(scoringEventName, "scoringEventName", name);
+
                     pointsForWeek += SCORING_CATERGORIES[eventKey].points;
                 }
             } else {
-                if (event.ELIMINATED) {
+                if (scoringEventName === "ELIMINATED") {
                     if (event.ELIMINATED.includes(name)) {
                         isEliminated = true;
                     }
@@ -250,14 +253,15 @@ const Contestant = (name, age, job, location, eliminated = false) => {
 
                     if (
                         scoringEventName ===
-                        " SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE"
+                        "SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE"
                     ) {
                         pointsForWeek +=
                             SCORING_CATERGORIES[scoringEventName].points;
                     }
 
                     //+1 For Surving Week
-                    if (!isEliminated) {
+                    if (!contestantsEliminatedThisWeek?.includes(name)) {
+                        console.log(name, "survied week", idx + 1);
                         pointsForWeek += 1;
                     }
                 }
