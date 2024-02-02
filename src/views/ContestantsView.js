@@ -2,8 +2,9 @@ import { Box, Stack, Typography, Paper, Avatar, Chip } from "@mui/material";
 import { contestants } from "../constants";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 
-const ContestantRow = ({ name, age, job, location, eliminated }) => {
+const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
     const imageUrl = `/assets/${name
         .toLowerCase()
         .replace(".", "")
@@ -13,12 +14,14 @@ const ContestantRow = ({ name, age, job, location, eliminated }) => {
             textAlign="left"
             sx={{
                 display: "flex",
+                width: 560,
                 alignItems: "center",
                 opacity: eliminated ? 0.3 : 1,
                 borderWidth: 3,
                 position: "relative",
                 borderStyle: "solid",
                 borderColor: eliminated ? "red" : "gray",
+                justifyContent: "space-between",
             }}
         >
             {eliminated && (
@@ -92,6 +95,7 @@ const ContestantRow = ({ name, age, job, location, eliminated }) => {
                     flexDirection: "column",
                     justifyContent: "center",
                     gap: 0.5,
+                    borderLeft: "2px solid gray",
                 }}
                 py={2}
                 px={3}
@@ -110,7 +114,7 @@ const ContestantRow = ({ name, age, job, location, eliminated }) => {
                             fontSize: 24,
                         }}
                     >
-                        21.5
+                        {points[0] + points[1]}
                     </Typography>
                     <Typography
                         sx={{
@@ -163,7 +167,7 @@ const ContestantsView = () => {
                     useFlexGap
                     justifyContent="center"
                 >
-                    {contestants.map((contestant) => (
+                    {_.sortBy(contestants, "eliminated").map((contestant) => (
                         <ContestantRow {...contestant} />
                     ))}
                 </Stack>
