@@ -1,6 +1,15 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import _ from "lodash";
 
+const suffixMap = {
+    1: "st",
+    2: "nd",
+    3: "rd",
+    4: "th",
+    5: "th",
+    6: "th",
+};
+
 const ScoreCardTeamHeader = ({
     manager,
     backgroundColor,
@@ -14,40 +23,55 @@ const ScoreCardTeamHeader = ({
                 gap: 4,
                 padding: 2,
                 flexDirection: reverse ? "row-reverse" : "row",
+                width: "100%",
+                border: "1px solid rgb(241, 242, 243)",
+                justifyContent: "space-between",
+                alignItems: "center",
             }}
         >
-            <Avatar
-                alt={manager}
-                src="/static/images/avatar/1.jpg"
-                sx={{ backgroundColor }}
-            />
-            <Box>
-                <Typography
-                    variant="h3"
-                    sx={{
-                        fontSize: 22,
-                        fontWeight: 700,
-                    }}
-                >
-                    {teamName}
-                </Typography>
-                <Typography
-                    variant="h3"
-                    sx={{
-                        fontSize: 12,
-                    }}
-                >
-                    {manager}
-                </Typography>
-                <Typography
-                    variant="h3"
-                    sx={{
-                        fontSize: 12,
-                    }}
-                >
-                    1st || 2nd Place
-                </Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    gap: 1.5,
+                    flexDirection: reverse ? "row-reverse" : "row",
+                }}
+            >
+                <Avatar
+                    alt={manager}
+                    src="/static/images/avatar/1.jpg"
+                    sx={{ backgroundColor }}
+                />
+                <Box>
+                    <Typography
+                        variant="h3"
+                        sx={{
+                            fontSize: 22,
+                            fontWeight: 700,
+                        }}
+                    >
+                        {teamName}
+                    </Typography>
+                    <Typography
+                        variant="h3"
+                        sx={{
+                            fontSize: 12,
+                            textAlign: "left",
+                        }}
+                    >
+                        {manager}
+                    </Typography>
+                    <Typography
+                        variant="h3"
+                        sx={{
+                            fontSize: 12,
+                            textAlign: "left",
+                        }}
+                    >
+                        1st || 2nd Place
+                    </Typography>
+                </Box>
             </Box>
+
             <Typography
                 sx={{
                     fontSize: 28,
@@ -67,7 +91,7 @@ const ContestantScoreCardCell = ({ reversed }) => {
                 display: "flex",
                 flexDirection: reversed ? "row-reverse" : "row",
                 border: "1px solid rgb(241, 242, 243)",
-                padding: 3,
+                padding: 2,
                 gap: 3,
                 justifyContent: "space-between",
                 width: "100%",
@@ -118,6 +142,7 @@ const ContestantScoreCardCell = ({ reversed }) => {
                             color: "rgb(121, 123, 125)",
                             textAlign: "left",
                         }}
+                        mt={0.25}
                     >
                         Job and Location
                     </Typography>
@@ -157,7 +182,8 @@ const ScoreCardRow = ({ index }) => {
                 }}
                 px={2}
             >
-                {index + 1}st
+                {index + 1}
+                {suffixMap[index + 1]}
             </Box>
             <ContestantScoreCardCell reversed />
         </Box>
@@ -166,10 +192,15 @@ const ScoreCardRow = ({ index }) => {
 
 const scoreCardView = (props) => {
     return (
-        <Box>
+        <Box px={15}>
             <Typography variant="h2">Score Card</Typography>
             <Box>
-                <Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                    }}
+                >
                     <ScoreCardTeamHeader
                         manager={"Jill"}
                         backgroundColor={"#E0B0FF"}
