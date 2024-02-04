@@ -279,13 +279,14 @@ const scoreCardView = (props) => {
     return (
         <Box
             // px={15}
-            // py={8}
+            py={4}
+            px={1}
             sx={{
                 backgroundColor: "#f7f7f7",
             }}
         >
             <ViewHeader />
-            <Box mt={8}>
+            <Box mt={3}>
                 <Box
                     sx={{
                         display: "flex",
