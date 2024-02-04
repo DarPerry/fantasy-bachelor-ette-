@@ -293,7 +293,18 @@ const ContestantsView = () => {
                     justifyContent="center"
                     alignContent={"center"}
                 >
-                    {_.sortBy(contestants, "eliminated").map((contestant) => (
+                    {_.orderBy(
+                        contestants.filter(({ eliminated }) => !eliminated),
+                        "points",
+                        "desc"
+                    ).map((contestant) => (
+                        <ContestantRow {...contestant} />
+                    ))}
+                    {_.orderBy(
+                        contestants.filter(({ eliminated }) => eliminated),
+                        "points",
+                        "desc"
+                    ).map((contestant) => (
                         <ContestantRow {...contestant} />
                     ))}
                 </Stack>

@@ -15,6 +15,7 @@ import _ from "lodash";
 import RulesView from "./views/RulesView";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import ContestantsView from "./views/ContestantsView";
+import ScoreCardView from "./views/ScoreCardView";
 
 function App() {
     const routes = [];
@@ -39,10 +40,7 @@ function App() {
                             path="contestants"
                             element={<ContestantsView />}
                         />
-                        <Route
-                            path="contestants"
-                            element={<ContestantsView />}
-                        />
+                        <Route path="scorecard" element={<ScoreCardView />} />
                         {/*<Route path="contact" element={<Contact />} /> */}
                         {/* <Route path="*" element={<NoPage />} /> */}
                     </Route>
