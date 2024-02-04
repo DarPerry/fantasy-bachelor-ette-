@@ -49,11 +49,11 @@ const ScoreCardTeamHeader = ({
                     textAlign: reverse ? "right" : "left",
                 }}
             >
-                <Avatar
+                {/* <Avatar
                     alt={manager}
                     src="/static/images/avatar/1.jpg"
-                    sx={{ backgroundColor: color, width: 38, height: 38 }}
-                />
+                    sx={{ backgroundColor: color, width: 38, height: 40 }}
+                /> */}
                 <Box>
                     <Typography
                         variant="h3"
@@ -265,7 +265,7 @@ const scoreCardView = (props) => {
         {
             manager: "Darius",
             color: "#228B22",
-            teamName: "#PeterSZNBestSZN",
+            teamName: "#PeteSZNBestSZN",
             reverse: true,
             team: _.orderBy(
                 contestants.filter(
