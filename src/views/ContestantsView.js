@@ -100,12 +100,14 @@ const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
                     borderStyle: "solid",
                     borderColor: eliminated ? "red" : "#93897e",
                     justifyContent: "space-between",
-                    [isTeamDarius ? "left" : "right"]: showDraftButtons
+                    left: showDraftButtons
                         ? 0
-                        : `${moveDistance}%`,
+                        : !isTeamJill
+                        ? `${moveDistance * 2}%`
+                        : `-${moveDistance}%`,
                     // left: isTeamJill ? `-${moveDistance}%` : 0,
                     // right: isTeamDarius ? `-${moveDistance}%` : 0,
-                    transition: "left 0.5s, right 0.5s",
+                    transition: "left 0.5s",
                 }}
             >
                 {eliminated && (
@@ -268,6 +270,9 @@ const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
 };
 
 const ContestantsView = () => {
+    const jillsTeam = contestants.filter(({ team }) => team === "Jill");
+    const dariusTeam = contestants.filter(({ team }) => team === "Darius");
+
     return (
         <Box
             sx={{

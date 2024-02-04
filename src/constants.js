@@ -206,7 +206,7 @@ export const weeklyScoring = [
     ],
 ];
 
-const Contestant = (name, age, job, location, team = "Darius") => {
+const Contestant = (name, age, job, location, team) => {
     let isEliminated = false;
     const weeklyPoints = [];
 
@@ -283,28 +283,40 @@ const Contestant = (name, age, job, location, team = "Darius") => {
 };
 
 export const contestants = [
-    Contestant("Allison", 26, "Realtor/Lauren's Sister", "Philadelphia, PA"),
-    Contestant("Autumn", 26, "Account Executive", "St. Louis, MO"),
-    Contestant("Chandler", "24", "Graphic Designer", "New York, NY", true),
-    Contestant("Chrissa", "26", "Marketing Director", "Abbotsford, BC"),
+    Contestant(
+        "Allison",
+        26,
+        "Realtor/Lauren's Sister",
+        "Philadelphia, PA",
+        "Darius"
+    ),
+    Contestant("Autumn", 26, "Account Executive", "St. Louis, MO", "Darius"),
+    Contestant("Chandler", "24", "Graphic Designer", "New York, NY", "Darius"),
+    Contestant(
+        "Chrissa",
+        "26",
+        "Marketing Director",
+        "Abbotsford, BC",
+        "Darius"
+    ),
     Contestant("Daisy", "25", "Account Executive", "MN"),
     Contestant("Edwina", "25", "Entrepreneur", "Atlanta, GA"),
-    Contestant("Erika", "25", "Leasing Agent", "North Bergen, NJ", true),
+    Contestant("Erika", "25", "Leasing Agent", "North Bergen, NJ"),
     Contestant("Evalin", "29", "Nanny", "San Antonio, Texas"),
     Contestant("Jenn", "25", "Physician Assistant Student", "Miami, FL"),
     Contestant("Jess", "24", "Executive Assistant", "San Diego, CA"),
     Contestant("Katelyn", "25", "Radiochemist", "Santa Fe, NM"),
-    Contestant("Kayla", "27", "Guidance Counselor", "Hamilton, OH", true),
+    Contestant("Kayla", "27", "Guidance Counselor", "Hamilton, OH"),
     Contestant("Kelsey A.", "25", "Junior Project Manager", "New Orleans, LA"),
     Contestant("Kelsey T.", "31", "Actor", "Los Angeles, CA"),
-    Contestant("Kyra", "26", "Paralegal", "Miami, FL", true),
-    Contestant("Lanie", "27", "Realtor", "Philadelphia, PA", true),
+    Contestant("Kyra", "26", "Paralegal", "Miami, FL", "Darius"),
+    Contestant("Lanie", "27", "Realtor", "Philadelphia, PA", "Darius"),
     Contestant(
         "Lauren",
         "28",
         "Registered Nurse/Allison's Sister",
         "Philadelphia, PA",
-        true
+        "Jill"
     ),
     Contestant("Lea", "23", "Account Manager", "Waipahu, HI"),
     Contestant("Lexi", "30", "Digital Strategist", "Atlanta, GA"),
@@ -315,12 +327,24 @@ export const contestants = [
         "26",
         "Finance Writer",
         "West Palm Beach, Florida",
-        true
+        "Jill"
     ),
-    Contestant("Nat", "26", "Registered Nurse/Professor", "Sudbury, CA", true),
+    Contestant(
+        "Nat",
+        "26",
+        "Registered Nurse/Professor",
+        "Sudbury, CA",
+        "Jill"
+    ),
     Contestant("Rachel", "26", "ICU Nurse", "Honolulu, HI"),
-    Contestant("Sam", "31", "CPA", "Nashville, TN", true),
-    Contestant("Samantha", "25", "Pro Football Cheerleader", "Miami, FL", true),
+    Contestant("Sam", "31", "CPA", "Nashville, TN", "Jill"),
+    Contestant(
+        "Samantha",
+        "25",
+        "Pro Football Cheerleader",
+        "Miami, FL",
+        "Jill"
+    ),
     Contestant(
         "Sandra",
         "26",
@@ -330,9 +354,9 @@ export const contestants = [
     ),
     Contestant("Starr", "25", "Mental Health Counselor", "Delray Beach, FL"),
     Contestant("Sydney", "28", "Vintage Store Owner", "Newport, RI"),
-    Contestant("Talyah", "23", "Esthetician", "Huntington Beach, CA", true),
-    Contestant("Taylor", "23", "Recruiter", "Chicago, IL", true),
-    Contestant("Zoe", "24", "Artist", "Atlanta, GA", true),
+    Contestant("Talyah", "23", "Esthetician", "Huntington Beach, CA"),
+    Contestant("Taylor", "23", "Recruiter", "Chicago, IL"),
+    Contestant("Zoe", "24", "Artist", "Atlanta, GA", "Jill"),
 ];
 
 const CONESTANTS = contestants.reduce((contestantKeys, contestant) => {
