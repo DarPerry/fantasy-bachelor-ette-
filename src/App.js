@@ -34,7 +34,7 @@ function App() {
                             </>
                         }
                     >
-                        <Route index element={<RulesView />} />
+                        <Route index element={<ScoreCardView />} />
                         <Route path="rules" element={<RulesView />} />
                         <Route
                             path="contestants"

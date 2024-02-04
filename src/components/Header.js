@@ -47,6 +47,7 @@ const Header = () => {
                         color="inherit"
                         sx={{
                             fontWeight: 500,
+                            fontSize: ".7rem",
                         }}
                     >
                         <Link

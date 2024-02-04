@@ -46,12 +46,13 @@ const ScoreCardTeamHeader = ({
                     gap: 1.5,
                     flexDirection: reverse ? "row-reverse" : "row",
                     alignItems: "center",
+                    textAlign: reverse ? "right" : "left",
                 }}
             >
                 <Avatar
                     alt={manager}
                     src="/static/images/avatar/1.jpg"
-                    sx={{ backgroundColor: color, width: 40, height: 40 }}
+                    sx={{ backgroundColor: color, width: 38, height: 38 }}
                 />
                 <Box>
                     <Typography
@@ -62,18 +63,18 @@ const ScoreCardTeamHeader = ({
                             color: "#2c3135",
                         }}
                     >
-                        {123}
+                        {manager}
                     </Typography>
                     <Typography
                         variant="h3"
                         sx={{
-                            fontSize: 12,
+                            fontSize: ".6875rem",
                             textAlign: reverse ? "right" : "left",
                             color: "white",
                             fontWeight: 400,
                         }}
                     >
-                        {manager}
+                        {teamName}
                     </Typography>
                     {/* <Typography
                         variant="h3"
@@ -264,7 +265,7 @@ const scoreCardView = (props) => {
         {
             manager: "Darius",
             color: "#228B22",
-            teamName: "#PeteSZNBestSZN",
+            teamName: "#PeterSZNBestSZN",
             reverse: true,
             team: _.orderBy(
                 contestants.filter(
