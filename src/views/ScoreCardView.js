@@ -1,5 +1,20 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import _ from "lodash";
+import { contestants } from "../constants";
+
+const teams = [
+    {
+        manager: "Jill",
+        color: "#E0B0FF",
+        teamName: "Team Jill",
+    },
+    {
+        manager: "Darius",
+        color: "#228B22",
+        teamName: "#PeteSZNBestSZN",
+        reverse: true,
+    },
+];
 
 const suffixMap = {
     1: "st",
@@ -10,11 +25,19 @@ const suffixMap = {
     6: "th",
 };
 
+const jillsTeam = contestants.filter(
+    (contestant) => contestant.team === "Jill"
+);
+const dariusTeam = contestants.filter(
+    (contestant) => contestant.team === "Darius"
+);
+
 const ScoreCardTeamHeader = ({
     manager,
-    backgroundColor,
-    teamName = "<Team Name>",
+    color,
+    teamName,
     reverse = false,
+    score,
 }) => {
     return (
         <Box
@@ -39,7 +62,7 @@ const ScoreCardTeamHeader = ({
                 <Avatar
                     alt={manager}
                     src="/static/images/avatar/1.jpg"
-                    sx={{ backgroundColor }}
+                    sx={{ backgroundColor: color }}
                 />
                 <Box>
                     <Typography
@@ -55,7 +78,7 @@ const ScoreCardTeamHeader = ({
                         variant="h3"
                         sx={{
                             fontSize: 12,
-                            textAlign: "left",
+                            textAlign: reverse ? "right" : "left",
                         }}
                     >
                         {manager}
@@ -64,7 +87,7 @@ const ScoreCardTeamHeader = ({
                         variant="h3"
                         sx={{
                             fontSize: 12,
-                            textAlign: "left",
+                            textAlign: reverse ? "right" : "left",
                         }}
                     >
                         1st || 2nd Place
@@ -78,13 +101,14 @@ const ScoreCardTeamHeader = ({
                     fontWeight: 700,
                 }}
             >
-                123
+                {score || "--"}
             </Typography>
         </Box>
     );
 };
 
-const ContestantScoreCardCell = ({ reversed }) => {
+const ContestantScoreCardCell = ({ reversed, score, contestant = {} }) => {
+    const { name, age, job, location } = contestant;
     return (
         <Box
             sx={{
@@ -105,6 +129,7 @@ const ContestantScoreCardCell = ({ reversed }) => {
                     gap: 1,
                     justifyContent: "center",
                     alignItems: "center",
+                    flexDirection: reversed ? "row-reverse" : "row",
                 }}
             >
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -121,9 +146,10 @@ const ContestantScoreCardCell = ({ reversed }) => {
                             sx={{
                                 fontSize: 14,
                                 color: "green",
+                                textAlign: reversed ? "right" : "left",
                             }}
                         >
-                            Contestant Name
+                            {name}
                         </Typography>
                         <Typography
                             variant="h3"
@@ -132,7 +158,7 @@ const ContestantScoreCardCell = ({ reversed }) => {
                                 color: "rgb(121, 123, 125)",
                             }}
                         >
-                            Age
+                            {age}
                         </Typography>
                     </Box>
                     <Typography
@@ -140,11 +166,11 @@ const ContestantScoreCardCell = ({ reversed }) => {
                         sx={{
                             fontSize: 12,
                             color: "rgb(121, 123, 125)",
-                            textAlign: "left",
+                            textAlign: reversed ? "right" : "left",
                         }}
                         mt={0.25}
                     >
-                        Job and Location
+                        {job} | {location}
                     </Typography>
                 </Box>
             </Box>
@@ -156,7 +182,7 @@ const ContestantScoreCardCell = ({ reversed }) => {
                     color: "rgb(121, 123, 125)",
                 }}
             >
-                123
+                {score || "--"}
             </Typography>
         </Box>
     );
@@ -169,7 +195,7 @@ const ScoreCardRow = ({ index }) => {
                 display: "flex",
             }}
         >
-            <ContestantScoreCardCell />
+            <ContestantScoreCardCell contestant={jillsTeam[index]} />
             <Box
                 sx={{
                     color: "rgb(121, 123, 125)",
@@ -178,6 +204,8 @@ const ScoreCardRow = ({ index }) => {
                     fontSize: 11,
                     display: "flex",
                     alignItems: "center",
+                    width: 60,
+                    justifyContent: "center",
                     // lineHeight: 13,
                 }}
                 px={2}
@@ -185,7 +213,7 @@ const ScoreCardRow = ({ index }) => {
                 {index + 1}
                 {suffixMap[index + 1]}
             </Box>
-            <ContestantScoreCardCell reversed />
+            <ContestantScoreCardCell contestant={dariusTeam[index]} reversed />
         </Box>
     );
 };
@@ -201,15 +229,9 @@ const scoreCardView = (props) => {
                         flexDirection: "row",
                     }}
                 >
-                    <ScoreCardTeamHeader
-                        manager={"Jill"}
-                        backgroundColor={"#E0B0FF"}
-                    />
-                    <ScoreCardTeamHeader
-                        manager={"Darius"}
-                        backgroundColor={"#228B22"}
-                        reverse
-                    />
+                    {teams.map((team) => (
+                        <ScoreCardTeamHeader {...team} />
+                    ))}
                 </Box>
             </Box>
             <Box

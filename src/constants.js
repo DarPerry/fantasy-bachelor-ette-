@@ -206,7 +206,7 @@ export const weeklyScoring = [
     ],
 ];
 
-const Contestant = (name, age, job, location, eliminated = false) => {
+const Contestant = (name, age, job, location, team = "Darius") => {
     let isEliminated = false;
     const weeklyPoints = [];
 
@@ -278,6 +278,7 @@ const Contestant = (name, age, job, location, eliminated = false) => {
         location,
         eliminated: isEliminated,
         points: weeklyPoints,
+        team,
     };
 };
 
