@@ -2,6 +2,7 @@ import { Avatar, Box, Typography } from "@mui/material";
 import _, { sum, sumBy } from "lodash";
 import { contestants } from "../constants";
 import { getContestantImage } from "../util/contestants";
+import ViewHeader from "../components/ViewHeader";
 
 const suffixMap = {
     1: "st",
@@ -50,18 +51,18 @@ const ScoreCardTeamHeader = ({
                 <Avatar
                     alt={manager}
                     src="/static/images/avatar/1.jpg"
-                    sx={{ backgroundColor: color }}
+                    sx={{ backgroundColor: color, width: 40, height: 40 }}
                 />
                 <Box>
                     <Typography
                         variant="h3"
                         sx={{
-                            fontSize: 22,
+                            fontSize: "1.0625rem",
                             fontWeight: 700,
                             color: "#2c3135",
                         }}
                     >
-                        {teamName}
+                        {123}
                     </Typography>
                     <Typography
                         variant="h3"
@@ -69,6 +70,7 @@ const ScoreCardTeamHeader = ({
                             fontSize: 12,
                             textAlign: reverse ? "right" : "left",
                             color: "white",
+                            fontWeight: 400,
                         }}
                     >
                         {manager}
@@ -87,7 +89,7 @@ const ScoreCardTeamHeader = ({
 
             <Typography
                 sx={{
-                    fontSize: 28,
+                    fontSize: "1.25rem",
                     fontWeight: 700,
                     color: "#2c3135",
                 }}
@@ -124,18 +126,24 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
             <Box
                 sx={{
                     display: "flex",
-                    gap: 1,
+                    gap: 1.25,
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: reversed ? "row-reverse" : "row",
                 }}
             >
-                <Avatar alt={name} src={getContestantImage(name)} />
+                <Avatar
+                    alt={name}
+                    src={getContestantImage(name)}
+                    sx={{
+                        width: 32,
+                        height: 32,
+                    }}
+                />
                 <Box>
                     <Box
                         sx={{
                             display: "flex",
-                            gap: 1.5,
                             alignItems: "center",
                             justifyContent: reversed ? "end" : "start",
                         }}
@@ -146,32 +154,34 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
                                 fontSize: 14,
                                 color: theme,
                                 textAlign: reversed ? "right" : "left",
-                                fontWeight: 600,
+                                fontWeight: 700,
                             }}
                         >
                             {name}
                         </Typography>
-                        <Typography
+                        {/* <Typography
                             variant="h3"
                             sx={{
-                                fontSize: 12,
+                                fontSize: "0.9375rem",
                                 color: "2c3135",
+                                fontWeight: 400,
                             }}
                         >
                             {age}
-                        </Typography>
+                        </Typography> */}
                     </Box>
                     <Typography
                         variant="h3"
                         sx={{
-                            fontSize: 12,
+                            fontSize: "0.7rem",
                             color: "rgb(121, 123, 125)",
                             textAlign: reversed ? "right" : "left",
                             color: "2c3135",
+                            fontWeight: "400",
                         }}
                         mt={0.25}
                     >
-                        {job} | {location}
+                        {age} • {location.split(",")[1]}
                     </Typography>
                 </Box>
             </Box>
@@ -212,7 +222,7 @@ const ScoreCardRow = ({
                 contestant={jillsTeam[index]}
                 theme={jillTheme}
             />
-            <Box
+            {/* <Box
                 sx={{
                     color: "rgb(121, 123, 125)",
                     backgroundColor: "#818c8e",
@@ -229,7 +239,7 @@ const ScoreCardRow = ({
             >
                 {index + 1}
                 {suffixMap[index + 1]}
-            </Box>
+            </Box> */}
             <ContestantScoreCardCell
                 contestant={dariusTeam[index]}
                 theme={dariusTheme}
@@ -268,21 +278,13 @@ const scoreCardView = (props) => {
 
     return (
         <Box
-            px={15}
-            py={8}
+            // px={15}
+            // py={8}
             sx={{
                 backgroundColor: "#f7f7f7",
             }}
         >
-            <Typography
-                variant="h2"
-                sx={{
-                    color: "#93897e",
-                    fontSize: 52,
-                }}
-            >
-                Score Card
-            </Typography>
+            <ViewHeader />
             <Box mt={8}>
                 <Box
                     sx={{

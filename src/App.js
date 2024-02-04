@@ -21,7 +21,7 @@ function App() {
     const routes = [];
 
     return (
-        <div className="App">
+        <div className="App" style={{ fontSize: 16 }}>
             <BrowserRouter>
                 <Routes>
                     <Route

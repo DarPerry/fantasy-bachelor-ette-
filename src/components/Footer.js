@@ -7,7 +7,7 @@ const Footer = () => {
             position="static"
             sx={{
                 backgroundColor: "white",
-                px: 20,
+                px: 3,
                 boxShadow: "none",
             }}
         >
@@ -19,9 +19,9 @@ const Footer = () => {
             >
                 {[
                     "Terms of Use",
-                    "Privacy Policy",
+                    // "Privacy Policy",
                     "Content Policy",
-                    "FAQ",
+                    // "FAQ",
                     "CONTACT",
                     "@SOCIALHANDLE",
                 ].map((optionLabel) => (
@@ -29,7 +29,7 @@ const Footer = () => {
                         color="#2c3135"
                         sx={{
                             fontWeight: 500,
-                            fontSize: "14px",
+                            fontSize: ".7rem",
                             my: 4,
                         }}
                     >
