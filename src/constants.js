@@ -299,7 +299,7 @@ export const contestants = [
         "Abbotsford, BC",
         "Darius"
     ),
-    Contestant("Daisy", "25", "Account Executive", "MN", "Jill"),
+    Contestant("Daisy", "25", "Account Executive", "Becker, MN", "Jill"),
     Contestant("Edwina", "25", "Entrepreneur", "Atlanta, GA", "Jill"),
     Contestant("Erika", "25", "Leasing Agent", "North Bergen, NJ"),
     Contestant("Evalin", "29", "Nanny", "San Antonio, Texas"),
