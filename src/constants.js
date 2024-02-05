@@ -292,13 +292,7 @@ export const contestants = [
     ),
     Contestant("Autumn", 26, "Account Executive", "St. Louis, MO", "Darius"),
     Contestant("Chandler", "24", "Graphic Designer", "New York, NY"),
-    Contestant(
-        "Chrissa",
-        "26",
-        "Marketing Director",
-        "Abbotsford, BC",
-        "Darius"
-    ),
+    Contestant("Chrissa", "26", "Marketing Director", "Abbotsford, BC"),
     Contestant("Daisy", "25", "Account Executive", "Becker, MN", "Jill"),
     Contestant("Edwina", "25", "Entrepreneur", "Atlanta, GA", "Jill"),
     Contestant("Erika", "25", "Leasing Agent", "North Bergen, NJ"),
@@ -339,7 +333,13 @@ export const contestants = [
     Contestant("Sam", "31", "CPA", "Nashville, TN"),
     Contestant("Samantha", "25", "Pro Football Cheerleader", "Miami, FL"),
     Contestant("Sandra", "26", "Cybersecurity Consultant", "Nashville, TN"),
-    Contestant("Starr", "25", "Mental Health Counselor", "Delray Beach, FL"),
+    Contestant(
+        "Starr",
+        "25",
+        "Mental Health Counselor",
+        "Delray Beach, FL",
+        "Darius"
+    ),
     Contestant("Sydney", "28", "Vintage Store Owner", "Newport, RI"),
     Contestant("Talyah", "23", "Esthetician", "Huntington Beach, CA"),
     Contestant("Taylor", "23", "Recruiter", "Chicago, IL"),
