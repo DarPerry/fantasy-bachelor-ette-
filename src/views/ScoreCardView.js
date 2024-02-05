@@ -110,57 +110,64 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
         <Box
             sx={{
                 display: "flex",
-                flexDirection: reversed ? "row-reverse" : "row",
                 borderBottom: "1px solid rgb(241, 242, 243)",
                 borderLeft: "1px solid rgb(241, 242, 243)",
                 borderRight: "1px solid rgb(241, 242, 243)",
 
                 padding: 2,
-                gap: 3,
-                justifyContent: "space-between",
-                width: "100%",
+                gap: 1.1,
+                // justifyContent: "space-between",
                 alignItems: "center",
-                height: "fit-content",
                 backgroundColor: "#eaeaea",
+                width: "100%",
+                flexDirection: "column",
             }}
         >
             <Box
                 sx={{
                     display: "flex",
-                    gap: 1.25,
-                    justifyContent: "center",
-                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
                     flexDirection: reversed ? "row-reverse" : "row",
                 }}
             >
-                <Avatar
-                    alt={name}
-                    src={getContestantImage(name)}
+                <Box
                     sx={{
-                        width: 32,
-                        height: 32,
+                        display: "flex",
+                        gap: 1.25,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: reversed ? "row-reverse" : "row",
                     }}
-                />
-                <Box>
-                    <Box
+                >
+                    <Avatar
+                        alt={name}
+                        src={getContestantImage(name)}
                         sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: reversed ? "end" : "start",
+                            width: 32,
+                            height: 32,
                         }}
-                    >
-                        <Typography
-                            variant="h3"
+                    />
+                    <Box>
+                        <Box
                             sx={{
-                                fontSize: 14,
-                                color: theme,
-                                textAlign: reversed ? "right" : "left",
-                                fontWeight: 700,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: reversed ? "end" : "start",
                             }}
                         >
-                            {name}
-                        </Typography>
-                        {/* <Typography
+                            <Typography
+                                variant="h3"
+                                sx={{
+                                    fontSize: 14,
+                                    color: theme,
+                                    textAlign: reversed ? "right" : "left",
+                                    fontWeight: 700,
+                                }}
+                            >
+                                {name}
+                            </Typography>
+                            {/* <Typography
                             variant="h3"
                             sx={{
                                 fontSize: "0.9375rem",
@@ -170,32 +177,65 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
                         >
                             {age}
                         </Typography> */}
+                        </Box>
+                        <Typography
+                            variant="h3"
+                            sx={{
+                                fontSize: "0.7rem",
+                                color: "rgb(121, 123, 125)",
+                                textAlign: reversed ? "right" : "left",
+                                color: "2c3135",
+                                fontWeight: "400",
+                            }}
+                            mt={0.25}
+                        >
+                            {age} • {location.split(",")[1]}
+                        </Typography>
                     </Box>
-                    <Typography
-                        variant="h3"
-                        sx={{
-                            fontSize: "0.7rem",
-                            color: "rgb(121, 123, 125)",
-                            textAlign: reversed ? "right" : "left",
-                            color: "2c3135",
-                            fontWeight: "400",
-                        }}
-                        mt={0.25}
-                    >
-                        {age} • {location.split(",")[1]}
-                    </Typography>
                 </Box>
+                <Typography
+                    sx={{
+                        fontSize: 16,
+                        // padding: 3,
+                        fontWeight: 700,
+                        color: "#2c3135",
+                    }}
+                >
+                    {score || "--"}
+                </Typography>
             </Box>
-            <Typography
+            <Box
                 sx={{
-                    fontSize: 16,
-                    // padding: 3,
-                    fontWeight: 700,
-                    color: "#2c3135",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
                 }}
             >
-                {score || "--"}
-            </Typography>
+                {_.times(9).map((i) => {
+                    const value = contestant.points[i];
+
+                    return (
+                        <Box
+                            sx={{
+                                backgroundColor: "#9a88b6",
+
+                                fontSize: ".5rem",
+                                width: 15,
+                                height: 15,
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                color: "white",
+                                borderRadius: 2,
+                                opacity: value ? 1 : 0.3,
+                                lineHeight: 0,
+                            }}
+                        >
+                            {value}
+                        </Box>
+                    );
+                })}
+            </Box>
         </Box>
     );
 };
