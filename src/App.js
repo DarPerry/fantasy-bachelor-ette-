@@ -17,10 +17,9 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import ContestantsView from "./views/ContestantsView";
 import ScoreCardView from "./views/ScoreCardView";
 import AdminView from "./views/AdminView";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-    const routes = [];
-
     return (
         <div className="App" style={{ fontSize: 16 }}>
             <BrowserRouter>
@@ -29,6 +28,7 @@ function App() {
                         path="/"
                         element={
                             <>
+                                <Toaster />
                                 <Header />
                                 <Outlet />
                                 <Footer />

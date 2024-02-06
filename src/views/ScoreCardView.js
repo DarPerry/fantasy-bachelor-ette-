@@ -1,17 +1,8 @@
 import { Avatar, Box, Typography } from "@mui/material";
-import _, { sum, sumBy } from "lodash";
-import { contestants } from "../constants";
+import _ from "lodash";
 import { getContestantImage } from "../util/contestants";
 import ViewHeader from "../components/ViewHeader";
-
-const suffixMap = {
-    1: "st",
-    2: "nd",
-    3: "rd",
-    4: "th",
-    5: "th",
-    6: "th",
-};
+import { useEffect, useState } from "react";
 
 const ScoreCardTeamHeader = ({
     manager,
@@ -291,7 +282,22 @@ const ScoreCardRow = ({
     );
 };
 
-const scoreCardView = (props) => {
+const ScoreCardView = (props) => {
+    const [contestants, setContestants] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const contestants = await fetch("/api/contestants");
+            const weeklyEvents = await fetch("/api/weeklyEvents");
+
+            console.log(contestants);
+
+            setContestants("contestants", contestants);
+        };
+
+        fetchData();
+    }, []);
+
     const teams = [
         {
             manager: "Jill",
@@ -317,6 +323,8 @@ const scoreCardView = (props) => {
             ),
         },
     ];
+
+    return <Box></Box>;
 
     return (
         <Box
@@ -361,4 +369,4 @@ const scoreCardView = (props) => {
     );
 };
 
-export default scoreCardView;
+export default ScoreCardView;

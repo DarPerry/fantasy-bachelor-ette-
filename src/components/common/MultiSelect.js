@@ -26,8 +26,6 @@ const names = contestants
     .map((contestant) => contestant.name);
 
 const MultiSelect = ({ label, ruleKey, setValue, value }) => {
-    const [personName, setPersonName] = useState([]);
-
     const handleChange = (event) => {
         const {
             target: { value },
