@@ -18,8 +18,98 @@ import ContestantsView from "./views/ContestantsView";
 import ScoreCardView from "./views/ScoreCardView";
 import AdminView from "./views/AdminView";
 import { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { SCORING_CATERGORIES, SCORING_CATERGORIES_KEYS } from "./constants";
 
 function App() {
+    const [contestants, setContestants] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data: contestantsData } = await axios.get(
+                "http://localhost:3030/contestants"
+            );
+            const { data: weeklyEventsData } = await axios.get(
+                "http://localhost:3030/weeklyEvents"
+            );
+
+            console.log(weeklyEventsData);
+
+            const contestantSeasonData = contestantsData.map((contestant) => {
+                let isEliminated = false;
+
+                const name = contestant.name;
+                const weeklyPoints = weeklyEventsData.reduce(
+                    (acc, { events: eventMap }) => {
+                        let pointsForWeek = 0;
+
+                        const contestantsEliminatedThisWeek =
+                            eventMap?.ELIMINATED.includes(name);
+
+                        Object.entries(eventMap).forEach(
+                            ([event, contestantsInvolved]) => {
+                                const scoringEventName = event;
+
+                                if (
+                                    ![
+                                        "ELIMINATED",
+                                        SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE,
+                                    ].includes(scoringEventName)
+                                ) {
+                                    const eventKey = Object.keys(event)[0];
+
+                                    if (contestantsInvolved?.includes(name)) {
+                                        pointsForWeek +=
+                                            SCORING_CATERGORIES[
+                                                scoringEventName
+                                            ].points;
+                                    }
+                                } else {
+                                    if (scoringEventName === "ELIMINATED") {
+                                        if (contestantsEliminatedThisWeek) {
+                                            isEliminated = true;
+                                        }
+                                    } else {
+                                        //SHOULD ONLY BE GROUP DATE OR COCKTAIL PARTY ROSE
+
+                                        if (
+                                            scoringEventName ===
+                                            "SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE"
+                                        ) {
+                                            pointsForWeek +=
+                                                SCORING_CATERGORIES[
+                                                    scoringEventName
+                                                ].points;
+                                        }
+
+                                        //+1 For Surving Week
+                                        if (!contestantsEliminatedThisWeek) {
+                                            pointsForWeek += 1;
+                                        }
+                                    }
+                                }
+                            }
+                        );
+
+                        return acc.concat(pointsForWeek);
+                    },
+                    []
+                );
+
+                return {
+                    ...contestant,
+                    eliminated: isEliminated,
+                    points: weeklyPoints,
+                };
+            });
+
+            setContestants(contestantSeasonData);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className="App" style={{ fontSize: 16 }}>
             <BrowserRouter>
@@ -35,13 +125,23 @@ function App() {
                             </>
                         }
                     >
-                        <Route index element={<ScoreCardView />} />
+                        <Route
+                            index
+                            element={
+                                <ScoreCardView contestants={contestants} />
+                            }
+                        />
                         <Route path="rules" element={<RulesView />} />
                         <Route
                             path="contestants"
                             element={<ContestantsView />}
                         />
-                        <Route path="scorecard" element={<ScoreCardView />} />
+                        <Route
+                            path="scorecard"
+                            element={
+                                <ScoreCardView contestants={contestants} />
+                            }
+                        />
                         <Route path="admin" element={<AdminView />} />
                         {/* <Route path="*" element={<NoPage />} /> */}
                     </Route>

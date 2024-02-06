@@ -8,7 +8,6 @@ import {
     Fab,
     Container,
 } from "@mui/material";
-import { contestants } from "../constants";
 import {
     faBan,
     faChevronCircleLeft,
@@ -270,6 +269,7 @@ const ContestantRow = ({ name, age, job, location, eliminated, points }) => {
 };
 
 const ContestantsView = () => {
+    const contestants = []; //TODO
     const jillsTeam = contestants.filter(({ team }) => team === "Jill");
     const dariusTeam = contestants.filter(({ team }) => team === "Darius");
 

@@ -55,7 +55,7 @@ export const SCORING_CATERGORIES = {
     ),
 };
 
-const SCORING_CATERGORIES_KEYS = {
+export const SCORING_CATERGORIES_KEYS = {
     GROUP_DATE: "GROUP_DATE",
     "TWO-ON-ONE_DATE": "TWO-ON-ONE_DATE",
     ONE_ON_ONE_DATE: "ONE_ON_ONE_DATE",
@@ -69,78 +69,78 @@ const SCORING_CATERGORIES_KEYS = {
     GROUP_DATE_SOMETHING_EXTRA: "GROUP_DATE_SOMETHING_EXTRA",
 };
 
-const Contestant = (name, age, job, location, team) => {
-    let isEliminated = false;
-    const weeklyPoints = [];
+// const Contestant = (name, age, job, location, team) => {
+//     let isEliminated = false;
+//     const weeklyPoints = [];
 
-    _.times(CURRENT_WEEK - 1, (idx) => {
-        const eventsForWeek = weeklyScoring[idx];
-        let pointsForWeek = 0;
+//     _.times(CURRENT_WEEK - 1, (idx) => {
+//         const eventsForWeek = weeklyScoring[idx];
+//         let pointsForWeek = 0;
 
-        // Add A Point For Not Getting Eliminated
+//         // Add A Point For Not Getting Eliminated
 
-        const contestantsEliminatedThisWeek = eventsForWeek.find(
-            (a) => Object.keys(a)[0] === "ELIMINATED"
-        )?.ELIMINATED;
+//         const contestantsEliminatedThisWeek = eventsForWeek.find(
+//             (a) => Object.keys(a)[0] === "ELIMINATED"
+//         )?.ELIMINATED;
 
-        console.log("Week", idx + 1, contestantsEliminatedThisWeek);
+//         console.log("Week", idx + 1, contestantsEliminatedThisWeek);
 
-        console.log(name, isEliminated);
+//         console.log(name, isEliminated);
 
-        const determinateEvents = [];
+//         const determinateEvents = [];
 
-        for (const event of eventsForWeek) {
-            const scoringEventName = Object.keys(event)[0];
+//         for (const event of eventsForWeek) {
+//             const scoringEventName = Object.keys(event)[0];
 
-            if (
-                ![
-                    "ELIMINATED",
-                    SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE,
-                ].includes(scoringEventName)
-            ) {
-                const eventKey = Object.keys(event)[0];
-                const contestantsInvolved = Object.values(event)[0];
+//             if (
+//                 ![
+//                     "ELIMINATED",
+//                     SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE,
+//                 ].includes(scoringEventName)
+//             ) {
+//                 const eventKey = Object.keys(event)[0];
+//                 const contestantsInvolved = Object.values(event)[0];
 
-                if (contestantsInvolved?.includes(name)) {
-                    console.log(scoringEventName, "scoringEventName", name);
+//                 if (contestantsInvolved?.includes(name)) {
+//                     console.log(scoringEventName, "scoringEventName", name);
 
-                    pointsForWeek += SCORING_CATERGORIES[eventKey].points;
-                }
-            } else {
-                if (scoringEventName === "ELIMINATED") {
-                    if (event.ELIMINATED.includes(name)) {
-                        isEliminated = true;
-                    }
-                } else {
-                    //SHOULD ONLY BE GROUP DATE OR COCKTAIL PARTY ROSE
+//                     pointsForWeek += SCORING_CATERGORIES[eventKey].points;
+//                 }
+//             } else {
+//                 if (scoringEventName === "ELIMINATED") {
+//                     if (event.ELIMINATED.includes(name)) {
+//                         isEliminated = true;
+//                     }
+//                 } else {
+//                     //SHOULD ONLY BE GROUP DATE OR COCKTAIL PARTY ROSE
 
-                    if (
-                        scoringEventName ===
-                        "SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE"
-                    ) {
-                        pointsForWeek +=
-                            SCORING_CATERGORIES[scoringEventName].points;
-                    }
+//                     if (
+//                         scoringEventName ===
+//                         "SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE"
+//                     ) {
+//                         pointsForWeek +=
+//                             SCORING_CATERGORIES[scoringEventName].points;
+//                     }
 
-                    //+1 For Surving Week
-                    if (!contestantsEliminatedThisWeek?.includes(name)) {
-                        console.log(name, "survied week", idx + 1);
-                        pointsForWeek += 1;
-                    }
-                }
-            }
-        }
+//                     //+1 For Surving Week
+//                     if (!contestantsEliminatedThisWeek?.includes(name)) {
+//                         console.log(name, "survied week", idx + 1);
+//                         pointsForWeek += 1;
+//                     }
+//                 }
+//             }
+//         }
 
-        weeklyPoints.push(pointsForWeek);
-    });
+//         weeklyPoints.push(pointsForWeek);
+//     });
 
-    return {
-        name,
-        age: Number(age),
-        job,
-        location,
-        // eliminated: isEliminated,
-        // points: weeklyPoints,
-        team,
-    };
-};
+//     return {
+//         name,
+//         age: Number(age),
+//         job,
+//         location,
+//         // eliminated: isEliminated,
+//         // points: weeklyPoints,
+//         team,
+//     };
+// };

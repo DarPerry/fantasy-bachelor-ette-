@@ -96,6 +96,7 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
     const { name, age, job, location } = contestant;
 
     const score = _.sum(contestant.points);
+    console.log(555, contestant);
 
     return (
         <Box
@@ -232,13 +233,7 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
     );
 };
 
-const ScoreCardRow = ({
-    index,
-    team,
-
-    jillInfo,
-    dariusInfo,
-}) => {
+const ScoreCardRow = ({ index, jillInfo, dariusInfo }) => {
     const jillsTeam = jillInfo.team;
     const dariusTeam = dariusInfo.team;
 
@@ -282,22 +277,8 @@ const ScoreCardRow = ({
     );
 };
 
-const ScoreCardView = (props) => {
-    const [contestants, setContestants] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const contestants = await fetch("/api/contestants");
-            const weeklyEvents = await fetch("/api/weeklyEvents");
-
-            console.log(contestants);
-
-            setContestants("contestants", contestants);
-        };
-
-        fetchData();
-    }, []);
-
+const ScoreCardView = ({ contestants = [] }) => {
+    console.log(666666, contestants);
     const teams = [
         {
             manager: "Jill",
@@ -324,7 +305,7 @@ const ScoreCardView = (props) => {
         },
     ];
 
-    return <Box></Box>;
+    if (!contestants.length) return null;
 
     return (
         <Box
@@ -354,16 +335,17 @@ const ScoreCardView = (props) => {
                     borderBottom: "1px solid rgba(247,247,247,0.3)",
                 }}
             >
-                {_.times(6).map((i) => (
-                    <ScoreCardRow
-                        key={i}
-                        index={i}
-                        jillInfo={teams[0]}
-                        dariusInfo={teams[1]}
-                        jillsTeam={teams[0].team}
-                        dariusTeam={teams[1].team}
-                    />
-                ))}
+                {contestants.length &&
+                    _.times(6).map((i) => (
+                        <ScoreCardRow
+                            key={i}
+                            index={i}
+                            jillInfo={teams[0]}
+                            dariusInfo={teams[1]}
+                            jillsTeam={teams[0].team}
+                            dariusTeam={teams[1].team}
+                        />
+                    ))}
             </Box>
         </Box>
     );

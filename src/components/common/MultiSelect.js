@@ -8,7 +8,6 @@ import {
     Select,
 } from "@mui/material";
 import { useState } from "react";
-import { contestants } from "../../constants";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,6 +19,8 @@ const MenuProps = {
         },
     },
 };
+
+const contestants = [];
 
 const names = contestants
     .filter(({ eliminated }) => !eliminated)
