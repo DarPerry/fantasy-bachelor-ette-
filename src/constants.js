@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-const CURRENT_WEEK = 3;
+export const CURRENT_WEEK = 3;
 
 const CONTESTANTS = {
     ALLISON: "Allison",
@@ -87,7 +87,7 @@ const ScoringRule = (
     frequency,
 });
 
-const SCORING_CATERGORIES = {
+export const SCORING_CATERGORIES = {
     GROUP_DATE: ScoringRule("Group Date", 1),
     "TWO-ON-ONE_DATE": ScoringRule("Two-on-One Date", 1.5),
     ONE_ON_ONE_DATE: ScoringRule("One-on-One Date", 2),
@@ -96,14 +96,15 @@ const SCORING_CATERGORIES = {
         1
     ),
     DATE_OR_COCKTAIL_PARTY_ROSE: ScoringRule(
-        "Receiving a Rose During a Date or Cocktail Party",
+        "Received Rose - Cocktail Party or Date",
         0.5
     ),
-    ROSE_CEREMONY_ROSE: ScoringRule(
-        "Receiving a Rose During a Rose Ceremony",
-        1
+    ROSE_CEREMONY_ROSE: ScoringRule("Received Rose - Rose Ceremony", 1),
+    GROUP_DATE_SOMETHING_EXTRA: ScoringRule(
+        "Group Date -  Something Extra",
+        0.5
     ),
-    GROUP_DATE_SOMETHING_EXTRA: ScoringRule("Group Date Something Extra", 0.5),
+    ELIMINATED: ScoringRule("Eliminated", 0),
     /// END OF SEASON
     /// END OF SEASON
     HOMETOWN_DATE: ScoringRule(

@@ -16,6 +16,7 @@ import RulesView from "./views/RulesView";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import ContestantsView from "./views/ContestantsView";
 import ScoreCardView from "./views/ScoreCardView";
+import AdminView from "./views/AdminView";
 
 function App() {
     const routes = [];
@@ -41,7 +42,7 @@ function App() {
                             element={<ContestantsView />}
                         />
                         <Route path="scorecard" element={<ScoreCardView />} />
-                        {/*<Route path="contact" element={<Contact />} /> */}
+                        <Route path="admin" element={<AdminView />} />
                         {/* <Route path="*" element={<NoPage />} /> */}
                     </Route>
                 </Routes>

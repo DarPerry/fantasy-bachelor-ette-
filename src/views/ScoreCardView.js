@@ -163,6 +163,7 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
                                     color: theme,
                                     textAlign: reversed ? "right" : "left",
                                     fontWeight: 700,
+                                    letterSpacing: "0.25px",
                                 }}
                             >
                                 {name}
