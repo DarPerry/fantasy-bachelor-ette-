@@ -84,7 +84,7 @@ const AdminView = () => {
                     // );
 
                     const { data } = await axios.post(
-                        "http://localhost:3030/weeklyEvents",
+                        "https://fbl-server.onrender.com/weeklyEvents",
                         EventsForWeek({
                             week: CURRENT_WEEK,
                             events: eventsWithValues,

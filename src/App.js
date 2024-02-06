@@ -28,10 +28,10 @@ function App() {
     useEffect(() => {
         const fetchData = async () => {
             const { data: contestantsData } = await axios.get(
-                "http://localhost:3030/contestants"
+                "https://fbl-server.onrender.com/contestants"
             );
             const { data: weeklyEventsData } = await axios.get(
-                "http://localhost:3030/weeklyEvents"
+                "https://fbl-server.onrender.com/weeklyEvents"
             );
 
             console.log(weeklyEventsData);
