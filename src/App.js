@@ -21,17 +21,19 @@ import { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { SCORING_CATERGORIES, SCORING_CATERGORIES_KEYS } from "./constants";
+import { DOMAIN } from "./util/api";
 
 function App() {
+    console.log(".ENV", process.env.NODE_ENV);
     const [contestants, setContestants] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             const { data: contestantsData } = await axios.get(
-                "https://fbl-server.onrender.com/contestants"
+                `${DOMAIN}/contestants`
             );
             const { data: weeklyEventsData } = await axios.get(
-                "https://fbl-server.onrender.com/weeklyEvents"
+                `${DOMAIN}/weeklyEvents`
             );
 
             console.log(weeklyEventsData);
@@ -45,11 +47,13 @@ function App() {
                         let pointsForWeek = 0;
 
                         const contestantsEliminatedThisWeek =
-                            eventMap?.ELIMINATED.includes(name);
+                            eventMap?.ELIMINATED?.includes(name);
 
                         Object.entries(eventMap).forEach(
                             ([event, contestantsInvolved]) => {
                                 const scoringEventName = event;
+                                const isContestantInvolved =
+                                    contestantsInvolved?.includes(name);
 
                                 if (
                                     ![
@@ -57,8 +61,6 @@ function App() {
                                         SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE,
                                     ].includes(scoringEventName)
                                 ) {
-                                    const eventKey = Object.keys(event)[0];
-
                                     if (contestantsInvolved?.includes(name)) {
                                         pointsForWeek +=
                                             SCORING_CATERGORIES[
@@ -75,8 +77,16 @@ function App() {
 
                                         if (
                                             scoringEventName ===
-                                            "SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE"
+                                                SCORING_CATERGORIES_KEYS.DATE_OR_COCKTAIL_PARTY_ROSE &&
+                                            isContestantInvolved
                                         ) {
+                                            console.log(
+                                                name,
+                                                scoringEventName,
+                                                SCORING_CATERGORIES[
+                                                    scoringEventName
+                                                ].points
+                                            );
                                             pointsForWeek +=
                                                 SCORING_CATERGORIES[
                                                     scoringEventName
@@ -142,7 +152,10 @@ function App() {
                                 <ScoreCardView contestants={contestants} />
                             }
                         />
-                        <Route path="admin" element={<AdminView />} />
+                        <Route
+                            path="admin"
+                            element={<AdminView contestants={contestants} />}
+                        />
                         {/* <Route path="*" element={<NoPage />} /> */}
                     </Route>
                 </Routes>

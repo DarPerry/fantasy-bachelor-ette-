@@ -22,11 +22,10 @@ const MenuProps = {
 
 const contestants = [];
 
-const names = contestants
-    .filter(({ eliminated }) => !eliminated)
-    .map((contestant) => contestant.name);
-
-const MultiSelect = ({ label, ruleKey, setValue, value }) => {
+const MultiSelect = ({ label, ruleKey, setValue, value, contestants }) => {
+    const names = contestants
+        .filter(({ eliminated }) => !eliminated)
+        .map((contestant) => contestant.name);
     const handleChange = (event) => {
         const {
             target: { value },

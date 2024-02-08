@@ -15,6 +15,7 @@ import MultiSelect from "../components/common/MultiSelect";
 import EventsForWeek from "../models/EventsForWeek";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { DOMAIN } from "../util/api";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -27,7 +28,7 @@ const MenuProps = {
     },
 };
 
-const AdminView = () => {
+const AdminView = ({ contestants }) => {
     const [formData, setFormData] = useState(
         Object.keys(SCORING_CATERGORIES).reduce((acc, key) => {
             acc[key] = [];
@@ -50,6 +51,7 @@ const AdminView = () => {
                                 setValue={(value) =>
                                     setFormData({ ...formData, [key]: value })
                                 }
+                                contestants={contestants}
                             />
                         );
                     }
@@ -84,7 +86,7 @@ const AdminView = () => {
                     // );
 
                     const { data } = await axios.post(
-                        "https://fbl-server.onrender.com/weeklyEvents",
+                        `${DOMAIN}/weeklyEvents`,
                         EventsForWeek({
                             week: CURRENT_WEEK,
                             events: eventsWithValues,

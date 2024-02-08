@@ -3,6 +3,8 @@ import _ from "lodash";
 import { getContestantImage } from "../util/contestants";
 import ViewHeader from "../components/ViewHeader";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const ScoreCardTeamHeader = ({
     manager,
@@ -93,10 +95,10 @@ const ScoreCardTeamHeader = ({
 };
 
 const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
-    const { name, age, job, location } = contestant;
+    const { name, age, job, location, eliminated, ...rest } = contestant;
 
     const score = _.sum(contestant.points);
-    console.log(555, contestant);
+    console.log(555, rest);
 
     return (
         <Box
@@ -113,6 +115,7 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
                 backgroundColor: "#eaeaea",
                 width: "100%",
                 flexDirection: "column",
+                opacity: eliminated ? 0.5 : 1,
             }}
         >
             <Box
@@ -206,6 +209,20 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
             >
                 {_.times(9).map((i) => {
                     const value = contestant.points[i];
+                    const showEliminatedIcon =
+                        contestant.points[i - 1] && !value && eliminated;
+
+                    if (eliminated) {
+                        console.log(
+                            "showEliminatedIcon",
+                            contestant.points[i - 1],
+                            !value
+                        );
+                    }
+
+                    if (showEliminatedIcon) {
+                        return <FontAwesomeIcon icon={faXmark} color="red" />;
+                    }
 
                     return (
                         <Box
@@ -222,6 +239,8 @@ const ContestantScoreCardCell = ({ reversed, contestant = {}, theme }) => {
                                 borderRadius: 2,
                                 opacity: value ? 1 : 0.3,
                                 lineHeight: 0,
+                                visibility:
+                                    !value && eliminated ? "hidden" : "flex",
                             }}
                         >
                             {value}
@@ -283,7 +302,7 @@ const ScoreCardView = ({ contestants = [] }) => {
         {
             manager: "Jill",
             color: "#E0B0FF",
-            teamName: "Team Jill",
+            teamName: "Can I Steal You For A Sec?",
             team: _.orderBy(
                 contestants.filter((contestant) => contestant.team === "Jill"),
                 ({ points }) => _.sum(points),
