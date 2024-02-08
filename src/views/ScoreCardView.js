@@ -4,7 +4,7 @@ import { getContestantImage } from "../util/contestants";
 import ViewHeader from "../components/ViewHeader";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faSpinner, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const ScoreCardTeamHeader = ({
     manager,
@@ -298,6 +298,9 @@ const ScoreCardRow = ({ index, jillInfo, dariusInfo }) => {
 
 const ScoreCardView = ({ contestants = [] }) => {
     console.log(666666, contestants);
+
+    if (!contestants.length) return <Box></Box>;
+
     const teams = [
         {
             manager: "Jill",
@@ -324,8 +327,6 @@ const ScoreCardView = ({ contestants = [] }) => {
         },
     ];
 
-    if (!contestants.length) return null;
-
     return (
         <Box
             // px={15}
@@ -335,37 +336,51 @@ const ScoreCardView = ({ contestants = [] }) => {
                 backgroundColor: "#f7f7f7",
             }}
         >
-            <ViewHeader />
-            <Box mt={3}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
+            {!contestants.length ? (
+                <FontAwesomeIcon
+                    icon={faSpinner}
+                    color="#e9868a"
+                    spin
+                    size="3x"
+                    style={{
+                        padding: "300px 0",
                     }}
-                >
-                    {teams.map((team) => (
-                        <ScoreCardTeamHeader {...team} />
-                    ))}
-                </Box>
-            </Box>
-            <Box
-                sx={{
-                    borderTop: "1px solid rgba(247,247,247,0.3)",
-                    borderBottom: "1px solid rgba(247,247,247,0.3)",
-                }}
-            >
-                {contestants.length &&
-                    _.times(6).map((i) => (
-                        <ScoreCardRow
-                            key={i}
-                            index={i}
-                            jillInfo={teams[0]}
-                            dariusInfo={teams[1]}
-                            jillsTeam={teams[0].team}
-                            dariusTeam={teams[1].team}
-                        />
-                    ))}
-            </Box>
+                />
+            ) : (
+                <>
+                    <ViewHeader />
+                    <Box mt={3}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                            }}
+                        >
+                            {teams.map((team) => (
+                                <ScoreCardTeamHeader {...team} />
+                            ))}
+                        </Box>
+                    </Box>
+                    <Box
+                        sx={{
+                            borderTop: "1px solid rgba(247,247,247,0.3)",
+                            borderBottom: "1px solid rgba(247,247,247,0.3)",
+                        }}
+                    >
+                        {contestants.length &&
+                            _.times(6).map((i) => (
+                                <ScoreCardRow
+                                    key={i}
+                                    index={i}
+                                    jillInfo={teams[0]}
+                                    dariusInfo={teams[1]}
+                                    jillsTeam={teams[0].team}
+                                    dariusTeam={teams[1].team}
+                                />
+                            ))}
+                    </Box>
+                </>
+            )}
         </Box>
     );
 };
