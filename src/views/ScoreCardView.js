@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, CircularProgress, Typography } from "@mui/material";
 import _ from "lodash";
 import { getContestantImage } from "../util/contestants";
 import ViewHeader from "../components/ViewHeader";
@@ -297,10 +297,6 @@ const ScoreCardRow = ({ index, jillInfo, dariusInfo }) => {
 };
 
 const ScoreCardView = ({ contestants = [] }) => {
-    console.log(666666, contestants);
-
-    if (!contestants.length) return <Box></Box>;
-
     const teams = [
         {
             manager: "Jill",
@@ -335,17 +331,19 @@ const ScoreCardView = ({ contestants = [] }) => {
             sx={{
                 backgroundColor: "#f7f7f7",
             }}
+            height={750}
         >
             {!contestants.length ? (
-                <FontAwesomeIcon
-                    icon={faSpinner}
-                    color="#e9868a"
-                    spin
-                    size="3x"
-                    style={{
-                        padding: "300px 0",
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
                     }}
-                />
+                >
+                    <CircularProgress />
+                </Box>
             ) : (
                 <>
                     <ViewHeader />

@@ -1,6 +1,11 @@
 import _ from "lodash";
+// import dayjs from "dayjs";
 
-export const CURRENT_WEEK = 3;
+// export const CURRENT_WEEK = dayjs(`01/29/${dayjs().year()}`);
+
+// console.log(CURRENT_WEEK, "CURRENT_WEEK");
+
+export const CURRENT_WEEK = 6;
 
 const SCORING_FREQUENCIES = {
     EACH_EPISODE: "each episode",
