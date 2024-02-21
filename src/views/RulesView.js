@@ -34,12 +34,12 @@ const endOfSeasonScoringRules = [
 ];
 
 const Cell = ({ score = 1, label = "Group Date", isInnerCell, isLastRow }) => {
-    const paddingY = 10;
+    const paddingY = 4;
     const borderStyle = "2px solid rgba(247,247,247,0.3)";
     return (
         <Box
             sx={{
-                width: "215px",
+                width: "115px",
                 // borderBottom: borderStyle,
                 // py: paddingY,
                 mt: paddingY,
@@ -54,14 +54,14 @@ const Cell = ({ score = 1, label = "Group Date", isInnerCell, isLastRow }) => {
                 {" "}
                 <Typography
                     sx={{
-                        fontSize: "79px",
+                        fontSize: "1.1rem",
                     }}
                 >
                     {score}
                 </Typography>
                 <Typography
                     sx={{
-                        fontSize: "13px",
+                        fontSize: ".6rem",
                         textTransform: "uppercase",
                     }}
                 >
@@ -105,7 +105,7 @@ const PointGrid = ({ header, scoringCells }) => {
                 sx={{
                     mt: 6,
                     textTransform: "uppercase",
-                    fontSize: 20,
+                    fontSize: "1.15rem",
                     fontWeight: 500,
                     letterSpacing: 2.3,
                     color: "white",
@@ -130,7 +130,7 @@ const PointGrid = ({ header, scoringCells }) => {
 const RulesView = () => {
     return (
         <>
-            <Box
+            {/* <Box
                 sx={{
                     backgroundColor: "#eaeaea",
                     px: 9,
@@ -185,12 +185,12 @@ const RulesView = () => {
                         </ListItemText>
                     ))}
                 </List>
-            </Box>
+            </Box> */}
             <Box
                 sx={{
                     backgroundColor: "#e9868a",
-                    px: 9,
-                    py: 11,
+                    px: 2,
+                    py: 3,
                     mx: "auto",
                     display: "flex",
                 }}
@@ -198,7 +198,7 @@ const RulesView = () => {
                 <Typography
                     variant="h2"
                     sx={{
-                        fontSize: 52,
+                        fontSize: "2rem",
                         color: "rgb(44, 49, 53)",
                         mx: "auto",
                     }}
@@ -214,7 +214,7 @@ const RulesView = () => {
                     />
                 </Typography>
             </Box>
-            <Box
+            {/* <Box
                 sx={{
                     backgroundColor: "#eaeaea",
                     px: 9,
@@ -252,7 +252,7 @@ const RulesView = () => {
                         />
                     ))}
                 </List>
-            </Box>
+            </Box> */}
         </>
     );
 };

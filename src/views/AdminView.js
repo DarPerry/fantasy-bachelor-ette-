@@ -1,32 +1,17 @@
-import {
-    Box,
-    Button,
-    Chip,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    OutlinedInput,
-    Select,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
-import { CURRENT_WEEK, SCORING_CATERGORIES, contestants } from "../constants";
+import {
+    CURRENT_WEEK,
+    SCORING_CATERGORIES,
+    WEEK_OF_HOME_TOWN_DATES,
+} from "../constants";
 import MultiSelect from "../components/common/MultiSelect";
 import EventsForWeek from "../models/EventsForWeek";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { DOMAIN } from "../util/api";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
+console.log(SCORING_CATERGORIES);
 
 const AdminView = ({ contestants }) => {
     const [formData, setFormData] = useState(
@@ -41,7 +26,10 @@ const AdminView = ({ contestants }) => {
             <Typography>Admin View</Typography>
             {Object.entries(SCORING_CATERGORIES).map(
                 ([key, { category, frequency }]) => {
-                    if (CURRENT_WEEK < 6 && frequency === "each episode") {
+                    if (
+                        CURRENT_WEEK < WEEK_OF_HOME_TOWN_DATES &&
+                        frequency === "each episode"
+                    ) {
                         return (
                             <MultiSelect
                                 key={key}
