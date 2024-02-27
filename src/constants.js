@@ -5,7 +5,7 @@ import _ from "lodash";
 
 // console.log(CURRENT_WEEK, "CURRENT_WEEK");
 
-export const CURRENT_WEEK = 6;
+export const CURRENT_WEEK = 7;
 export const WEEK_OF_HOME_TOWN_DATES = 8;
 
 const SCORING_FREQUENCIES = {

@@ -27,7 +27,7 @@ const AdminView = ({ contestants }) => {
             {Object.entries(SCORING_CATERGORIES).map(
                 ([key, { category, frequency }]) => {
                     if (
-                        CURRENT_WEEK < WEEK_OF_HOME_TOWN_DATES &&
+                        CURRENT_WEEK <= WEEK_OF_HOME_TOWN_DATES &&
                         frequency === "each episode"
                     ) {
                         return (
